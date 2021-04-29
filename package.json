@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@nestjs/cli": "^7.6.0",
+    "@vue/cli": "^4.5.12"
+  }
+}
