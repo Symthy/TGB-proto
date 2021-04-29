@@ -9,3 +9,63 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+// add models
+
+model Profile {
+  id      Int     @id @default(autoincrement())
+  detail  String?
+  picture String?
+  belogs  String?
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int     @unique @map("user_id")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  password String
+  name     String   @db.VarChar(20)
+  role     Role     @default(USER)
+  profile  Profile?
+
+  TaskGroup   TaskGroup? @relation(fields: [taskGroupId], references: [id])
+  taskGroupId Int[]      @map("task_group_id")
+}
+
+enum Role {
+  USER
+  READER
+  ADMIN
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  detail      String   @db.VarChar
+  progress    Int
+  estimate    String   @default("-")
+  result      String   @default("-")
+  status      Status
+  createdAt   DateTime @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  completedAt DateTime @map("completed_at")
+
+  taskGroup TaskGroup @relation(fields: [groupId], references: [id])
+  groupId   Int       @unique
+}
+
+model TaskGroup {
+  id      Int     @id @default(autoincrement())
+  name    String
+  summary String?
+  Task    Task[]
+  User    User[]
+}
+
+enum Status {
+  NOTSTARTED
+  INPROGRESS
+  COMPLETED
+  PENDING
+}
