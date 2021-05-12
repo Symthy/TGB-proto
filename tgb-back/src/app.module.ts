@@ -1,14 +1,14 @@
-import { PrismaService } from "@/prisma.service";
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TaskModule } from './task/task.module';
+import { PrismaService } from './db/prisma.service';
 import { TaskPrismaRepository } from "./tgb/influstructure/task/taskPrismaRepository";
 import { UserPrismaRepository } from "./tgb/influstructure/user/userPrismaRepository";
+import { TaskModule } from './task/task.module';
 
 
-const taskRep = new TaskPrismaRepository(new PrismaService());
-const userRep = new UserPrismaRepository(new PrismaService());
+const taskRep = new TaskPrismaRepository(new PrismaService);
+const userRep = new UserPrismaRepository(new PrismaService);
 
 @Module({
   imports: [TaskModule],

@@ -1,8 +1,13 @@
-import { PrismaService } from "@/prisma.service";
+import { User } from ".prisma/client";
+import { DbContext, DbContextProvider } from "@/db/dbContext";
 import { UserRepository } from "../repository";
+import { UserModel } from "./userModel";
 
 export class UserPrismaRepository implements UserRepository {
-  constructor(private dbContext: PrismaService) { }
+  private prisma: DbContext;
+  constructor(private dbContextProvider: DbContextProvider) {
+    this.prisma = dbContextProvider.getContext();
+  }
 
   findById(): Promise<UserModel> {
     throw new Error("Method not implemented.");
@@ -13,8 +18,10 @@ export class UserPrismaRepository implements UserRepository {
   findMany(): Promise<UserModel[]> {
     throw new Error("Method not implemented.");
   }
-  save(): void {
-    throw new Error("Method not implemented.");
+  async save(user: UserModel): Promise<User> {
+    return await this.prisma.user.create({
+      data: user
+    });
   }
   remove(): void {
     throw new Error("Method not implemented.");

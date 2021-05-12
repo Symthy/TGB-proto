@@ -1,8 +1,11 @@
-import { PrismaService } from "@/prisma.service";
+import { DbContext, DbContextProvider } from "@/db/dbContext";
 import { TaskRepository } from "../repository";
 
 export class TaskPrismaRepository implements TaskRepository {
-  constructor(private prisma: PrismaService) { }
+  private prisma: DbContext;
+  constructor(dbContextProvider: DbContextProvider) {
+    this.prisma = dbContextProvider.getContext();
+  }
 
   findById(): Promise<TaskModel> {
     throw new Error("Method not implemented.");
