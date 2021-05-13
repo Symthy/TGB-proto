@@ -3,26 +3,26 @@ import { UserPrismaRepository } from "@/tgb/influstructure/user/userPrismaReposi
 import { Role } from "@prisma/client";
 
 
-describe('UserPrismaRepository', () => {
+describe('UserPrismaRepository Test', () => {
 
   it('user create', async () => {
     const prismaServiceMock = new PrismaService();
     const userRep = new UserPrismaRepository(prismaServiceMock);
-    const user = {
+    const userResult = {
       id: 1,
       email: "test@example.com",
       password: "password",
       name: "name",
       role: "USER" as Role
     }
-    $prisma.user.create.mockResolvedValue(user);
-    await expect(userRep.save(user)).resolves.toEqual({
-      id: 1,
+    $prisma.user.create.mockResolvedValue(userResult);
+
+    await expect(userRep.create({
       email: "test@example.com",
       password: "password",
       name: "name",
-      role: "USER"
-    })
+      role: "USER" as Role
+    })).resolves.toEqual(userResult)
   })
 
 })

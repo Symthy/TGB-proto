@@ -18,12 +18,15 @@ export class UserPrismaRepository implements UserRepository {
   findMany(): Promise<UserModel[]> {
     throw new Error("Method not implemented.");
   }
-  async save(user: UserModel): Promise<User> {
+  async create(user: UserModel): Promise<User> {
     return await this.prisma.user.create({
       data: user
     });
   }
-  remove(): void {
+  update(user: UserModel): Promise<User> {
+    throw new Error("Method not implemented.");
+  }
+  remove(): Promise<User> {
     throw new Error("Method not implemented.");
   }
 

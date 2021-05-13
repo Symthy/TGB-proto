@@ -79,8 +79,5 @@
     "setupFilesAfterEnv": [
       "./test/utils/prismaMock.ts"
     ]
-  },
-  "engines": {
-    "node": ">=10.0.0"
   }
 }

@@ -5,13 +5,14 @@ import { PrismaService } from './db/prisma.service';
 import { TaskPrismaRepository } from "./tgb/influstructure/task/taskPrismaRepository";
 import { UserPrismaRepository } from "./tgb/influstructure/user/userPrismaRepository";
 import { TaskModule } from './task/task.module';
+import { UserModule } from './user/user.module';
 
 
 const taskRep = new TaskPrismaRepository(new PrismaService);
 const userRep = new UserPrismaRepository(new PrismaService);
 
 @Module({
-  imports: [TaskModule],
+  imports: [TaskModule, UserModule],
   controllers: [AppController],
   providers: [
     AppService,
