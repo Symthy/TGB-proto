@@ -1,4 +1,4 @@
-import { PrismaService } from "@/db/prisma.service";
+import { PrismaService } from "@/tgb/db/prisma.service";
 import { UserPrismaRepository } from "@/tgb/influstructure/user/userPrismaRepository";
 import { Role } from "@prisma/client";
 

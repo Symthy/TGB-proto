@@ -1,0 +1,30 @@
+@startuml
+
+package controller
+entity entityModelIn
+entity responseModelOut
+
+package service
+entity domainModelIn
+entity domainModelOut
+
+package influstracture {
+  entity prismaModel
+}
+
+database postgre
+
+controller ..> entityModelIn
+entityModelIn .. service
+service ..> responseModelOut
+responseModelOut ..> controller
+
+service ..> domainModelIn
+domainModelIn ..> influstracture
+influstracture ..> domainModelOut
+domainModelOut ..> service
+
+
+influstracture ..> postgre
+
+@enduml

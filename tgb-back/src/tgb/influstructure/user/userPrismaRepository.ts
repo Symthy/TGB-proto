@@ -1,5 +1,5 @@
 import { User } from ".prisma/client";
-import { DbContext, DbContextProvider } from "@/db/dbContext";
+import { DbContext, DbContextProvider } from "@/tgb/db/dbContext";
 import { UserRepository } from "../repository";
 import { UserModel } from "./userModel";
 

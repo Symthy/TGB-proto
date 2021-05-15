@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PrismaService } from './db/prisma.service';
+import { TaskModule } from './task/task.module';
+import { PrismaService } from './tgb/db/prisma.service';
 import { TaskPrismaRepository } from "./tgb/influstructure/task/taskPrismaRepository";
 import { UserPrismaRepository } from "./tgb/influstructure/user/userPrismaRepository";
-import { TaskModule } from './task/task.module';
 import { UserModule } from './user/user.module';
 
 
