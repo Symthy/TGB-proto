@@ -1,11 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { UserRepository } from '@/tgb/influstructure/repository';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+
+  constructor(@Inject('USER_REPOSITORY') private userRepository: UserRepository) {
+  }
+
+  create(createUserDto: CreateUserDto): Promise<UserEntity> {
+    const user = createUserDto.toDomain();
+
+    return this.userRepository.create(user.toModel()).then(user => {
+      return UserEntity.toResponse(user);
+    });
   }
 
   findAll() {

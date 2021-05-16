@@ -6,13 +6,13 @@ CREATE TYPE "Status" AS ENUM ('WAITING', 'INPROGRESS', 'COMPLETED', 'PENDING', '
 
 -- CreateTable
 CREATE TABLE "profile" (
-    "id" SERIAL NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "name" TEXT,
     "detail" TEXT,
     "picture" TEXT,
-    "belogs" TEXT,
-    "user_id" INTEGER NOT NULL,
+    "belongs" TEXT,
 
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("user_id")
 );
 
 -- CreateTable
@@ -20,7 +20,7 @@ CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "name" VARCHAR(20) NOT NULL,
+    "nickname" VARCHAR(20) NOT NULL,
     "role" "Role" NOT NULL DEFAULT E'USER',
 
     PRIMARY KEY ("id")
@@ -59,9 +59,6 @@ CREATE TABLE "UserTaskGroup" (
 
     PRIMARY KEY ("task_group_id","user_id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "profile.user_id_unique" ON "profile"("user_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user.email_unique" ON "user"("email");

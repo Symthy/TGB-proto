@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 export class Password {
 
   // source: https://qiita.com/mpyw/items/886218e7b418dfed254b
-  private static pattern = "/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,32}$/i";
+  private static regexp = new RegExp('^(?=.*?[a-z])(?=.*?\d)[a-z\d]*', 'i');
   private encryptedPassword;
 
   constructor(value: string) {
@@ -14,11 +14,15 @@ export class Password {
       throw new ValueNullException(value);
     }
     if (value.length < 8 && value.length > 32) {
-      throw new ValueInvalidException("", "email")
+      throw new ValueInvalidException("length range over.", "password")
     }
-    if (!value.match(Password.pattern)) {
-      throw new ValueInvalidException("", "email")
+    if (!Password.regexp.test(value)) {
+      throw new ValueInvalidException("no match.", "password")
     }
     this.encryptedPassword = bcrypt.hashSync(value, 10);
+  }
+
+  get value() {
+    return this.encryptedPassword;
   }
 }

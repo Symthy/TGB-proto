@@ -2,13 +2,17 @@ import { ValueInvalidException } from "@/exception/valueInvalidException";
 import { ValueNullException } from "@/exception/valueNullException";
 
 export class Nickname {
-  constructor(private value: string) {
-    if (value == null) {
+  constructor(private _value: string) {
+    if (_value == null) {
       throw new ValueNullException("nickname");
     }
-    if (value.length < 32) {
+    if (_value.length > 32) {
       throw new ValueInvalidException("", "nickname");
     }
-    this.value = value;
+    this._value = _value;
+  }
+
+  get value() {
+    return this._value;
   }
 }
