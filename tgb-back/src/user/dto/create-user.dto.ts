@@ -12,15 +12,28 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
+  private retryPassword;
+
+  @IsNotEmpty()
+  @IsString()
   private nickname;
 
   @IsString()
   private email;
 
-  constructor(password: string, nickname: string, email: string) {
+  constructor(password: string, retryPassword: string, nickname: string, email: string) {
     this.password = password;
+    this.retryPassword = retryPassword;
     this.nickname = nickname;
     this.email = email;
+  }
+
+  public getPassword(): string {
+    return this.password;
+  }
+
+  public getRetryPassword(): string {
+    return this.retryPassword;
   }
 
   toDomain(): User {

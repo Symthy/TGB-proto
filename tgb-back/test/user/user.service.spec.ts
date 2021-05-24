@@ -36,7 +36,7 @@ describe('UserService', () => {
     }
     $prisma.user.create.mockResolvedValue(userResult);
 
-    const userDto = new CreateUserDto(password, nickname, email);
+    const userDto = new CreateUserDto(password, password, nickname, email);
     expect(service.create(userDto)).resolves.toEqual({
       id: 1,
       email: email,
