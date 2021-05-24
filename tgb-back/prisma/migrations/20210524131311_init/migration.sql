@@ -2,7 +2,7 @@
 CREATE TYPE "Role" AS ENUM ('USER', 'READER', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('WAITING', 'INPROGRESS', 'COMPLETED', 'PENDING', 'BACKLOG');
+CREATE TYPE "Status" AS ENUM ('WAITING', 'INPROGRESS', 'COMPLETED', 'PENDING');
 
 -- CreateTable
 CREATE TABLE "profile" (
@@ -29,16 +29,26 @@ CREATE TABLE "user" (
 -- CreateTable
 CREATE TABLE "task" (
     "id" SERIAL NOT NULL,
-    "title" TEXT NOT NULL,
-    "detail" VARCHAR NOT NULL,
-    "progress" INTEGER NOT NULL,
-    "estimate" TEXT NOT NULL DEFAULT E'-',
-    "result" TEXT NOT NULL DEFAULT E'-',
-    "status" "Status" NOT NULL,
+    "title" TEXT NOT NULL DEFAULT E'',
+    "content" VARCHAR NOT NULL,
+    "progress" INTEGER NOT NULL DEFAULT 0,
+    "estimate_time" TEXT NOT NULL DEFAULT E'-',
+    "result_time" TEXT NOT NULL DEFAULT E'-',
+    "status" "Status" NOT NULL DEFAULT E'WAITING',
     "created_at" TIMESTAMP(3) NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "completed_at" TIMESTAMP(3) NOT NULL,
     "groupId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "task_performance" (
+    "id" SERIAL NOT NULL,
+    "step_count" INTEGER,
+    "code_review_points" INTEGER,
+    "taskId" INTEGER NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -66,11 +76,17 @@ CREATE UNIQUE INDEX "user.email_unique" ON "user"("email");
 -- CreateIndex
 CREATE UNIQUE INDEX "task.groupId_unique" ON "task"("groupId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "task_performance.taskId_unique" ON "task_performance"("taskId");
+
 -- AddForeignKey
 ALTER TABLE "profile" ADD FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "task" ADD FOREIGN KEY ("groupId") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "task_performance" ADD FOREIGN KEY ("taskId") REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserTaskGroup" ADD FOREIGN KEY ("task_group_id") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;

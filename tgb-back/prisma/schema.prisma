@@ -24,14 +24,15 @@ model Profile {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
+  id       Int    @id @default(autoincrement())
+  email    String @unique
   password String
-  nickname String   @db.VarChar(20)
-  role     Role     @default(USER)
-  profile  Profile?
+  nickname String @db.VarChar(20)
+  role     Role   @default(USER)
 
+  Profile       Profile?
   UserTaskGroup UserTaskGroup[]
+
   @@map("user")
 }
 
@@ -42,20 +43,32 @@ enum Role {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
-  title       String
-  detail      String   @db.VarChar
-  progress    Int
-  estimate    String   @default("-")
-  result      String   @default("-")
-  status      Status
-  createdAt   DateTime @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  completedAt DateTime @map("completed_at")
+  id           Int      @id @default(autoincrement())
+  title        String   @default("")
+  content      String   @db.VarChar
+  progress     Int      @default(0)
+  estimateTime String   @default("-") @map("estimate_time")
+  resultTime   String   @default("-") @map("result_time")
+  status       Status   @default(WAITING)
+  createdAt    DateTime @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  completedAt  DateTime @map("completed_at")
 
   taskGroup TaskGroup @relation(fields: [groupId], references: [id])
   groupId   Int       @unique
+
+  TaskPerformance TaskPerformance?
   @@map("task")
+}
+
+model TaskPerformance {
+  id               Int  @id @default(autoincrement())
+  stepCount        Int? @map("step_count")
+  codeReviewPoints Int? @map("code_review_points")
+
+  task   Task @relation(fields: [taskId], references: [id])
+  taskId Int  @unique
+  @@map("task_performance")
 }
 
 model TaskGroup {
@@ -83,5 +96,4 @@ enum Status {
   INPROGRESS
   COMPLETED
   PENDING
-  BACKLOG
 }

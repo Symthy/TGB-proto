@@ -1,0 +1,85 @@
+@startuml
+
+skinparam linetype ortho
+
+enum Role {
+  USER
+  READER
+  ADMIN
+}
+
+enum Status {
+  WAITING
+  INPROGRESS
+  COMPLETED
+  PENDING
+}
+
+entity Profile {
+  * userId: Int
+  name: String?
+  detail: String?
+  picture: String?
+  belongs: String?
+  * user: User
+}
+
+entity User {
+  * id: Int
+  * email: String
+  * password: String
+  * nickname: String
+  * role: Role
+  Profile: Profile?
+  * UserTaskGroup: UserTaskGroup[]
+}
+
+entity Task {
+  * id: Int
+  * title: String
+  * content: String
+  * progress: Int
+  * estimateTime: String
+  * resultTime: String
+  * status: Status
+  * createdAt: DateTime
+  * updatedAt: DateTime
+  * completedAt: DateTime
+  * taskGroup: TaskGroup
+  * groupId: Int
+  TaskPerformance: TaskPerformance?
+}
+
+entity TaskPerformance {
+  * id: Int
+  stepCount: Int?
+  codeReviewPoints: Int?
+  * task: Task
+  * taskId: Int
+}
+
+entity TaskGroup {
+  * id: Int
+  * name: String
+  summary: String?
+  * UserTaskGroup: UserTaskGroup[]
+  * Task: Task[]
+}
+
+entity UserTaskGroup {
+  * taskGroupId: Int
+  * userId: Int
+  * taskGroup: TaskGroup
+  * user: User
+}
+
+Profile |o..|| User
+Profile |o..|| User
+Task ||..|| Status
+Task ||..o| TaskPerformance
+Task }|..|| TaskGroup
+User ||..|{ UserTaskGroup
+User ||..|| Role
+Task ||..|| Status
+
+@enduml
