@@ -5,7 +5,7 @@ import { UserModel } from "./user/userModel";
 export interface Repository<T> {
   findById(): Promise<T>;
   find(): Promise<T>;
-  findMany(): Promise<T[]>;
+  findMany(): Promise<T[] | void>;
 
 }
 
@@ -17,6 +17,6 @@ export interface TaskRepository extends Repository<TaskModel> {
 
 export interface UserRepository extends Repository<UserModel> {
   create(user: UserModel): Promise<User>;
-  update(task: TaskModel): Promise<User>
+  update(task: UserModel): Promise<User>
   remove(user: UserModel): Promise<User>;
 }

@@ -18,8 +18,11 @@ export class UserService {
     });
   }
 
-  findAll() {
-    return `This action returns all user`;
+  findAll(): Promise<Array<UserEntity>> {
+    const users = this.userRepository.findMany()
+    return users.then(users => {
+      return users.map(user => UserEntity.toResponse(user));
+    });
   }
 
   findOne(id: number) {

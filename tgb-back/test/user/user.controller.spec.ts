@@ -29,7 +29,7 @@ describe('UserController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('retry password valid', () => {
+  it('create: retry password valid', () => {
     const userResult = {
       id: 1,
       email: email,
@@ -39,7 +39,7 @@ describe('UserController', () => {
     }
     $prisma.user.create.mockResolvedValue(userResult);
 
-    const createUserDto = new CreateUserDto(password, password, nickname, email)
+    const createUserDto = new CreateUserDto(password, password, nickname, email);
     expect(controller.create(createUserDto)).resolves.toEqual({
       id: 1,
       email: email,
@@ -48,8 +48,9 @@ describe('UserController', () => {
     });
   });
 
-  it('retry password invalid', () => {
-    const createUserDto = new CreateUserDto(password, "noMatchPassword", nickname, email)
+  it('create: retry password invalid', () => {
+    const createUserDto = new CreateUserDto(password, "noMatchPassword", nickname, email);
     expect(() => { controller.create(createUserDto) }).toThrowError(Error);
   });
+
 });

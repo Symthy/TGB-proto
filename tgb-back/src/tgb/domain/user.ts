@@ -10,6 +10,7 @@ export class User {
 
   toModel() {
     return {
+      id: this.id,
       password: this.password.value,
       nickname: this.nickname.value,
       email: this.email.value,

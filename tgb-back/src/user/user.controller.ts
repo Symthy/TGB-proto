@@ -13,12 +13,11 @@ export class UserController {
     if (createUserDto.getPassword() !== createUserDto.getRetryPassword()) {
       throw new Error("no match password and retry password.");
     }
-
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Array<UserEntity>> {
     return this.userService.findAll();
   }
 
