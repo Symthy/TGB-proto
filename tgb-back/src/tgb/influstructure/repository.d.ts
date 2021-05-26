@@ -5,7 +5,7 @@ import { UserModel } from "./user/userModel";
 export interface Repository<T> {
   findById(): Promise<T>;
   find(): Promise<T>;
-  findMany(): Promise<T[] | void>;
+  findMany(): Promise<T[]>;
 
 }
 

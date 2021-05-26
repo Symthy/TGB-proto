@@ -7,8 +7,18 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Role } from '@prisma/client';
 
 describe('UserController', () => {
-  let controller: UserController;
+  const password = 'password123'
+  const nickname = 'nickname';
+  const email = 'test@example.com';
+  const userResult1 = {
+    id: 1,
+    email: email,
+    password: password,
+    nickname: nickname,
+    role: "USER" as Role
+  }
 
+  let controller: UserController;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
@@ -21,24 +31,12 @@ describe('UserController', () => {
     controller = module.get<UserController>(UserController);
   });
 
-  const password = 'password123'
-  const nickname = 'nickname';
-  const email = 'test@example.com';
-
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
   it('create: retry password valid', () => {
-    const userResult = {
-      id: 1,
-      email: email,
-      password: password,
-      nickname: nickname,
-      role: "USER" as Role
-    }
-    $prisma.user.create.mockResolvedValue(userResult);
-
+    $prisma.user.create.mockResolvedValue(userResult1);
     const createUserDto = new CreateUserDto(password, password, nickname, email);
     expect(controller.create(createUserDto)).resolves.toEqual({
       id: 1,
