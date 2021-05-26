@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { UserCreateCommand } from './command/userCreate.command';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
@@ -10,10 +11,11 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
-    if (createUserDto.getPassword() !== createUserDto.getRetryPassword()) {
+    const userCreateCommand = new UserCreateCommand(createUserDto);
+    if (userCreateCommand.password !== userCreateCommand.retryPassword) {
       throw new Error("no match password and retry password.");
     }
-    return this.userService.create(createUserDto);
+    return this.userService.create(userCreateCommand);
   }
 
   @Get()

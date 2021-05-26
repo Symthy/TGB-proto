@@ -1,6 +1,7 @@
 import { PrismaService } from '@/tgb/db/prisma.service';
 import { Role } from '@/tgb/domain/model/user/role';
 import { UserPrismaRepository } from '@/tgb/influstructure/user/userPrismaRepository';
+import { UserCreateCommand } from '@/user/command/userCreate.command';
 import { CreateUserDto } from '@/user/dto/create-user.dto';
 import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -46,8 +47,10 @@ describe('UserService', () => {
 
   it('create', () => {
     $prisma.user.create.mockResolvedValue(userResult1);
-    const userDto = new CreateUserDto(password, password, nickname, email);
-    expect(service.create(userDto)).resolves.toEqual({
+    const command = new UserCreateCommand(
+      new CreateUserDto(password, password, nickname, email)
+    );
+    expect(service.create(command)).resolves.toEqual({
       id: 1,
       email: email,
       nickname: nickname,
