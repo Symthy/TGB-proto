@@ -29,7 +29,6 @@ describe('UserService', () => {
   }
 
   let service: UserService;
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [UserService, {
@@ -57,6 +56,16 @@ describe('UserService', () => {
       role: "USER"
     });
   });
+
+  it('findById', () => {
+    $prisma.user.findUnique.mockResolvedValue(userResult1);
+    expect(service.findById(1)).resolves.toEqual({
+      id: 1,
+      email: email,
+      nickname: nickname,
+      role: "USER"
+    });
+  })
 
   it('findAll', () => {
     $prisma.user.findMany.mockResolvedValue([userResult1, userResult2]);

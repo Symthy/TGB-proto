@@ -9,11 +9,10 @@ export class UserPrismaRepository implements UserRepository {
     this.prisma = dbContextProvider.getContext();
   }
 
-  findById(): Promise<UserModel> {
-    throw new Error("Method not implemented.");
-  }
-  find(): Promise<UserModel> {
-    throw new Error("Method not implemented.");
+  async findById(id: number): Promise<UserModel> {
+    return await this.prisma.user.findUnique(
+      { where: { id: id } }
+    );
   }
   async findMany(): Promise<User[]> {
     return await this.prisma.user.findMany();

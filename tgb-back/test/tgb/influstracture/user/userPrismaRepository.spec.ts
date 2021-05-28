@@ -24,7 +24,6 @@ describe('UserPrismaRepository', () => {
 
   it('create user', async () => {
     $prisma.user.create.mockResolvedValue(userResult1);
-
     await expect(userRep.create({
       email: "test@example.com",
       password: "password",
@@ -33,7 +32,12 @@ describe('UserPrismaRepository', () => {
     })).resolves.toEqual(userResult1)
   });
 
-  it('user get all', async () => {
+  it('user fine one', async () => {
+    $prisma.user.findUnique.mockResolvedValue(userResult1);
+    expect(userRep.findById(1)).resolves.toEqual(userResult1);
+  });
+
+  it('user find all', async () => {
     $prisma.user.findMany.mockResolvedValue([userResult1, userResult2]);
     expect(userRep.findMany()).resolves.toMatchObject([
       userResult1, userResult2

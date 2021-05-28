@@ -25,8 +25,9 @@ export class UserService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findById(id: number) {
+    const user = this.userRepository.findById(id);
+    return user.then(user => UserEntity.toResponse(user));
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
