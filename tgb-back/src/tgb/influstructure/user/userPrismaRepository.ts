@@ -14,17 +14,24 @@ export class UserPrismaRepository implements UserRepository {
       { where: { id: id } }
     );
   }
+
   async findMany(): Promise<User[]> {
     return await this.prisma.user.findMany();
   }
+
   async create(user: Omit<UserModel, 'id'>): Promise<User> {
     return await this.prisma.user.create({
       data: user
     });
   }
-  update(user: UserModel): Promise<User> {
-    throw new Error("Method not implemented.");
+
+  async update(user: UserModel): Promise<User> {
+    return await this.prisma.user.update({
+      data: user,
+      where: { id: user.id }
+    });
   }
+
   remove(): Promise<User> {
     throw new Error("Method not implemented.");
   }

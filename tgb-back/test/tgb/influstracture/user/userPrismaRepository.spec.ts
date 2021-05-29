@@ -29,7 +29,7 @@ describe('UserPrismaRepository', () => {
       password: "password",
       nickname: "name",
       role: "USER"
-    })).resolves.toEqual(userResult1)
+    })).resolves.toEqual(userResult1);
   });
 
   it('user fine one', async () => {
@@ -42,5 +42,18 @@ describe('UserPrismaRepository', () => {
     expect(userRep.findMany()).resolves.toMatchObject([
       userResult1, userResult2
     ]);
+  });
+
+  it('user update', async () => {
+    const userResult = userResult1;
+    userResult.nickname = 'changedName'
+    $prisma.user.update.mockResolvedValue(userResult);
+    await expect(userRep.update({
+      id: 1,
+      email: "test@example.com",
+      password: "password",
+      nickname: "changedName",
+      role: "USER"
+    })).resolves.toEqual(userResult);
   });
 })

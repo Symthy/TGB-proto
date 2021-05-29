@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { UserCreateCommand } from './command/userCreate.command';
+import { UserUpdateCommand } from './command/userUpdate.command';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
@@ -30,7 +31,8 @@ export class UserController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+    const command = new UserUpdateCommand(+id, updateUserDto);
+    return this.userService.update(command);
   }
 
   @Delete(':id')

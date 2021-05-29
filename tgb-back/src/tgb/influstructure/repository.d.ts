@@ -16,6 +16,6 @@ export interface TaskRepository extends Repository<TaskModel> {
 
 export interface UserRepository extends Repository<UserModel> {
   create(user: Omit<UserModel, 'id'>): Promise<User>;
-  update(task: UserModel): Promise<User>
+  update(user: UserModel): Promise<User>
   remove(user: UserModel): Promise<User>;
 }
