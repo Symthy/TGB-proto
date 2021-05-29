@@ -32,8 +32,10 @@ export class UserPrismaRepository implements UserRepository {
     });
   }
 
-  remove(): Promise<User> {
-    throw new Error("Method not implemented.");
+  async remove(id: number): Promise<User> {
+    return await this.prisma.user.delete({
+      where: { id: id }
+    });
   }
 
 }

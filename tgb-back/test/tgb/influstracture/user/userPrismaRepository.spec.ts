@@ -56,4 +56,9 @@ describe('UserPrismaRepository', () => {
       role: "USER"
     })).resolves.toEqual(userResult);
   });
+
+  it('user remove', async () => {
+    $prisma.user.delete.mockResolvedValue(userResult1);
+    await expect(userRep.remove(1)).resolves.toEqual(userResult1);
+  });
 })
