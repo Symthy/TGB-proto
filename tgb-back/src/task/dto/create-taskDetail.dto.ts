@@ -1,24 +1,24 @@
 import { IsNotEmpty, IsNumberString, IsString } from 'class-validator';
 
-export class CreateTaskDto {
-
-  @IsNotEmpty()
-  @IsString()
-  title;
+export class CreateTaskDetailDto {
 
   @IsNotEmpty()
   @IsNumberString()
-  progressPercent;
+  taskId;
 
   @IsNotEmpty()
   @IsString()
-  estimateTime;
+  createdDateTime;
 
-  @IsNotEmpty()
   @IsString()
-  status;
+  content;
 
-  @IsNotEmpty()
+  @IsString()
+  resultTime;
+
   @IsNumberString()
-  groupId;
+  stepCount;
+
+  @IsNumberString()
+  codeReviewPoints;
 }

@@ -1,5 +1,4 @@
-import { User } from ".prisma/client";
-import { Task } from "@prisma/client";
+import { TaskModel } from "./task/taskModel";
 import { UserModel } from "./user/userModel";
 
 export interface Repository<T> {
@@ -9,13 +8,13 @@ export interface Repository<T> {
 }
 
 export interface TaskRepository extends Repository<TaskModel> {
-  create(task: Omit<TaskModel, 'id'>): Promise<Task>;
-  update(task: TaskModel): Promise<Task>
-  remove(task: TaskModel): Promise<Task>;
+  create(task: Omit<TaskModel, 'id'>): Promise<TaskModel>;
+  update(task: TaskModel): Promise<TaskModel>
+  remove(task: number): Promise<TaskModel>;
 }
 
 export interface UserRepository extends Repository<UserModel> {
-  create(user: Omit<UserModel, 'id'>): Promise<User>;
-  update(user: UserModel): Promise<User>
-  remove(id: number): Promise<User>;
+  create(user: Omit<UserModel, 'id'>): Promise<UserModel>;
+  update(user: UserModel): Promise<UserModel>
+  remove(id: number): Promise<UserModel>;
 }

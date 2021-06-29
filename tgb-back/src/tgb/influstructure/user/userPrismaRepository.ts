@@ -9,7 +9,7 @@ export class UserPrismaRepository implements UserRepository {
     this.prisma = dbContextProvider.getContext();
   }
 
-  async findById(id: number): Promise<UserModel> {
+  async findById(id: number): Promise<User> {
     return await this.prisma.user.findUnique(
       { where: { id: id } }
     );

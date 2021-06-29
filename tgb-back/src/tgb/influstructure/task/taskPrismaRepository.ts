@@ -1,6 +1,6 @@
 import { DbContext, DbContextProvider } from "@/tgb/db/dbContext";
-import { Task } from "@prisma/client";
 import { TaskRepository } from "../repository";
+import { TaskModel } from "./taskModel";
 
 export class TaskPrismaRepository implements TaskRepository {
   private prisma: DbContext;
@@ -8,22 +8,20 @@ export class TaskPrismaRepository implements TaskRepository {
     this.prisma = dbContextProvider.getContext();
   }
 
-  findById(): Promise<TaskModel> {
+  findById(id: number): Promise<TaskModel> {
     throw new Error("Method not implemented.");
   }
-  find(): Promise<TaskModel> {
-    throw new Error("Method not implemented.");
-  }
+
   findMany(): Promise<TaskModel[]> {
     throw new Error("Method not implemented.");
   }
-  create(): Promise<Task> {
+  create(): Promise<TaskModel> {
     throw new Error("Method not implemented.");
   }
-  update(): Promise<Task> {
+  update(): Promise<TaskModel> {
     throw new Error("Method not implemented.");
   }
-  remove(): Promise<Task> {
+  remove(): Promise<TaskModel> {
     throw new Error("Method not implemented.");
   }
 

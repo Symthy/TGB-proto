@@ -43,31 +43,29 @@ enum Role {
 }
 
 model Task {
-  id           Int      @id @default(autoincrement())
-  title        String   @default("")
-  content      String   @db.VarChar
-  progress     Int      @default(0)
-  estimateTime String   @default("-") @map("estimate_time")
-  resultTime   String   @default("-") @map("result_time")
-  status       Status   @default(WAITING)
-  createdAt    DateTime @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  completedAt  DateTime @map("completed_at")
+  id           Int       @id @default(autoincrement())
+  title        String    @default("")
+  progress     Int       @default(0)
+  estimateTime String    @default("-") @map("estimate_time")
+  status       Status    @default(WAITING)
+  createdAt    DateTime  @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  completedAt  DateTime? @map("completed_at")
 
-  taskGroup TaskGroup @relation(fields: [groupId], references: [id])
-  groupId   Int       @unique
-
-  TaskPerformance TaskPerformance?
+  groupId    Int         @unique @map("group_id")
+  taskGroup  TaskGroup   @relation(fields: [groupId], references: [id])
+  taskDetail TaskDetail?
   @@map("task")
 }
 
-model TaskPerformance {
-  id               Int  @id @default(autoincrement())
-  stepCount        Int? @map("step_count")
-  codeReviewPoints Int? @map("code_review_points")
+model TaskDetail {
+  taskId           Int    @id
+  content          String @db.VarChar
+  resultTime       String @default("-") @map("result_time")
+  stepCount        Int?   @map("step_count")
+  codeReviewPoints Int?   @map("code_review_points")
 
-  task   Task @relation(fields: [taskId], references: [id])
-  taskId Int  @unique
+  task Task @relation(fields: [taskId], references: [id])
   @@map("task_performance")
 }
 
@@ -78,7 +76,6 @@ model TaskGroup {
 
   UserTaskGroup UserTaskGroup[]
   Task          Task[]
-
   @@map("task_group")
 }
 

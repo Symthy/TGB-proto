@@ -37,25 +37,24 @@ entity User {
 entity Task {
   * id: Int
   * title: String
-  * content: String
   * progress: Int
   * estimateTime: String
-  * resultTime: String
   * status: Status
   * createdAt: DateTime
   * updatedAt: DateTime
   * completedAt: DateTime
   * taskGroup: TaskGroup
   * groupId: Int
-  TaskPerformance: TaskPerformance?
+  taskDetail: TaskDetail?
 }
 
-entity TaskPerformance {
-  * id: Int
+entity TaskDetail {
+  * taskId: Int
+  * content: String
+  * resultTime: String
   stepCount: Int?
   codeReviewPoints: Int?
   * task: Task
-  * taskId: Int
 }
 
 entity TaskGroup {
@@ -76,7 +75,7 @@ entity UserTaskGroup {
 Profile |o..|| User
 Profile |o..|| User
 Task ||..|| Status
-Task ||..o| TaskPerformance
+Task ||..o| TaskDetail
 Task }|..|| TaskGroup
 User ||..|{ UserTaskGroup
 User ||..|| Role

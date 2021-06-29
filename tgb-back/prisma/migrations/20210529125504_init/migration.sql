@@ -30,10 +30,8 @@ CREATE TABLE "user" (
 CREATE TABLE "task" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL DEFAULT E'',
-    "content" VARCHAR NOT NULL,
     "progress" INTEGER NOT NULL DEFAULT 0,
     "estimate_time" TEXT NOT NULL DEFAULT E'-',
-    "result_time" TEXT NOT NULL DEFAULT E'-',
     "status" "Status" NOT NULL DEFAULT E'WAITING',
     "created_at" TIMESTAMP(3) NOT NULL,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -45,12 +43,13 @@ CREATE TABLE "task" (
 
 -- CreateTable
 CREATE TABLE "task_performance" (
-    "id" SERIAL NOT NULL,
+    "taskId" INTEGER NOT NULL,
+    "content" VARCHAR NOT NULL,
+    "result_time" TEXT NOT NULL DEFAULT E'-',
     "step_count" INTEGER,
     "code_review_points" INTEGER,
-    "taskId" INTEGER NOT NULL,
 
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("taskId")
 );
 
 -- CreateTable
@@ -75,9 +74,6 @@ CREATE UNIQUE INDEX "user.email_unique" ON "user"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "task.groupId_unique" ON "task"("groupId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "task_performance.taskId_unique" ON "task_performance"("taskId");
 
 -- AddForeignKey
 ALTER TABLE "profile" ADD FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
