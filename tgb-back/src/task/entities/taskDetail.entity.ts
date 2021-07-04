@@ -1,6 +1,6 @@
 import { SelectTime } from "@/tgb/timeList";
 
-export class TaskDetail {
+export class TaskDetailEntity {
 
   constructor(
     private taskId: number,

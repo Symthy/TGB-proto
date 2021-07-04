@@ -1,7 +1,8 @@
-import { Email } from "./model/user/email";
-import { Nickname } from "./model/user/nickname";
-import { Password } from "./model/user/password";
-import { RoleValue } from "./model/user/role";
+import { Email } from "./user/email";
+import { Nickname } from "./user/nickname";
+import { Password } from "./user/password";
+import { RoleValue } from "./user/role";
+
 
 export class User {
   private role;

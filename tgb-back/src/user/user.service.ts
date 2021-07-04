@@ -12,9 +12,9 @@ export class UserService {
 
   create(command: UserCreateCommand): Promise<UserEntity> {
     const user = command.toDomain();
-    return this.userRepository.create(user.toModel()).then(user => {
-      return UserEntity.toResponse(user);
-    });
+    return this.userRepository.create(user.toModel()).then(
+      user => UserEntity.toResponse(user)
+    );
   }
 
   findAll(): Promise<Array<UserEntity>> {

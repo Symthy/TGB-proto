@@ -15,8 +15,10 @@ export class TaskPrismaRepository implements TaskRepository {
   findMany(): Promise<TaskModel[]> {
     throw new Error("Method not implemented.");
   }
-  create(): Promise<TaskModel> {
-    throw new Error("Method not implemented.");
+  async create(task: Omit<TaskModel, 'id'>): Promise<TaskModel> {
+    return await this.prisma.task.create({
+      data: task
+    });
   }
   update(): Promise<TaskModel> {
     throw new Error("Method not implemented.");

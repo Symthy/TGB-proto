@@ -31,25 +31,18 @@ CREATE TABLE "task" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL DEFAULT E'',
     "progress" INTEGER NOT NULL DEFAULT 0,
-    "estimate_time" TEXT NOT NULL DEFAULT E'-',
     "status" "Status" NOT NULL DEFAULT E'WAITING',
-    "created_at" TIMESTAMP(3) NOT NULL,
+    "content" TEXT NOT NULL DEFAULT E'',
+    "scheduled_time" TEXT NOT NULL DEFAULT E'-',
+    "result_time" TEXT NOT NULL DEFAULT E'-',
+    "step_count" INTEGER NOT NULL DEFAULT 0,
+    "review_points" INTEGER NOT NULL DEFAULT 0,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
-    "completed_at" TIMESTAMP(3) NOT NULL,
-    "groupId" INTEGER NOT NULL,
+    "completed_at" TIMESTAMP(3),
+    "group_id" INTEGER NOT NULL,
 
     PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "task_performance" (
-    "taskId" INTEGER NOT NULL,
-    "content" VARCHAR NOT NULL,
-    "result_time" TEXT NOT NULL DEFAULT E'-',
-    "step_count" INTEGER,
-    "code_review_points" INTEGER,
-
-    PRIMARY KEY ("taskId")
 );
 
 -- CreateTable
@@ -72,17 +65,11 @@ CREATE TABLE "UserTaskGroup" (
 -- CreateIndex
 CREATE UNIQUE INDEX "user.email_unique" ON "user"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "task.groupId_unique" ON "task"("groupId");
-
 -- AddForeignKey
 ALTER TABLE "profile" ADD FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "task" ADD FOREIGN KEY ("groupId") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "task_performance" ADD FOREIGN KEY ("taskId") REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "task" ADD FOREIGN KEY ("group_id") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserTaskGroup" ADD FOREIGN KEY ("task_group_id") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;

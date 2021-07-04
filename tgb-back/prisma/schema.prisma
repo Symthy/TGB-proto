@@ -50,13 +50,13 @@ model Task {
   content       String    @default("") @db.Text
   scheduledTime String    @default("-") @map("scheduled_time")
   resultTime    String    @default("-") @map("result_time")
-  stepCount     Int?      @map("step_count")
-  reviewPoints  Int?      @map("review_points")
-  createdAt     DateTime  @map("created_at")
+  stepCount     Int       @default(0) @map("step_count")
+  reviewPoints  Int       @default(0) @map("review_points")
+  createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   completedAt   DateTime? @map("completed_at")
 
-  groupId   Int       @unique @map("group_id")
+  groupId   Int       @map("group_id")
   taskGroup TaskGroup @relation(fields: [groupId], references: [id])
   @@map("task")
 }

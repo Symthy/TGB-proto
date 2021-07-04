@@ -1,7 +1,7 @@
+import { User } from "@/tgb/domain/model/user";
 import { Email } from "@/tgb/domain/model/user/email";
 import { Nickname } from "@/tgb/domain/model/user/nickname";
 import { Password } from "@/tgb/domain/model/user/password";
-import { User } from "@/tgb/domain/user";
 import { CreateUserDto } from "../dto/create-user.dto";
 
 export class UserCreateCommand {

@@ -1,3 +1,6 @@
+import { ValueInvalidException } from "@/exception/valueInvalidException";
+import { Status } from "@prisma/client";
+
 const WorkStates = {
   WAITING: 'Waiting',
   IN_PROGRESS: 'InProgress',
@@ -15,5 +18,14 @@ export class WorkStatusValue {
 
   static contains(state: any): state is WorkState {
     return Object.values(WorkStates).includes(state);
+  }
+
+  static convert(state: WorkState): Status | never {
+    for (const [key, value] of Object.entries(WorkStates)) {
+      if (value === state as string) {
+        return key as Status;
+      }
+    }
+    throw new ValueInvalidException("", "status");
   }
 }

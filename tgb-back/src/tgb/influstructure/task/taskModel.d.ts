@@ -1,15 +1,19 @@
 import { SelectTime } from "@/tgb/timeList";
-import { WorkState } from "@/tgb/workStatus";
+import { Status } from "@prisma/client";
 
 interface TaskModel {
   id: number;
   title: string;
-  progressPercent: number;
-  estimateTime: SelectTime;
-  status: WorkState;
-  createdAt: Date;
-  updatedAt: Date;
-  completedAt: Date;
+  progress: number;
+  scheduledTime: string;
+  status: Status;
+  content?: string,
+  resultTime?: string,
+  stepCount?: number,
+  reviewPoints?: number
+  createdAt?: Date;
+  updatedAt?: Date;
+  completedAt?: Date;
   groupId: number;
 }
 
@@ -18,5 +22,5 @@ interface TaskDetailModel {
   content?: string,
   resultTime?: SelectTime,
   stepCount?: number,
-  codeReviewPoints?: number
+  reviewPoints?: number
 }
