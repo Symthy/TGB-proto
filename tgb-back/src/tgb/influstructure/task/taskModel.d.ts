@@ -1,11 +1,11 @@
-import { TimeList } from "@/tgb/timeList";
+import { SelectTime } from "@/tgb/timeList";
 import { WorkState } from "@/tgb/workStatus";
 
 interface TaskModel {
   id: number;
   title: string;
   progressPercent: number;
-  estimateTime: TimeList;
+  estimateTime: SelectTime;
   status: WorkState;
   createdAt: Date;
   updatedAt: Date;
@@ -16,7 +16,7 @@ interface TaskModel {
 interface TaskDetailModel {
   id: number
   content?: string,
-  resultTime?: TimeList,
+  resultTime?: SelectTime,
   stepCount?: number,
   codeReviewPoints?: number
 }

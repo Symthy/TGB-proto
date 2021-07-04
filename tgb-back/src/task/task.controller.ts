@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { TaskCreateCommand } from './command/taskCreate.command';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
@@ -9,7 +10,8 @@ export class TaskController {
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.create(createTaskDto);
+    const command = new TaskCreateCommand(createTaskDto);
+    return this.taskService.create(command);
   }
 
   @Get()

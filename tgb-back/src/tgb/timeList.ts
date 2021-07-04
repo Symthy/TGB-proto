@@ -22,4 +22,18 @@ const Times = {
   '7day': '7d'
 } as const;
 type keys = keyof typeof Times;
-export type TimeList = typeof Times[keys];
+export type SelectTime = typeof Times[keys];
+
+export class SelectTimeValue {
+  static defaultTime(): SelectTime {
+    return '0.5h';
+  }
+
+  static getTimes(): Array<SelectTime> {
+    return Object.values(Times);
+  }
+
+  static contains(time: any): time is SelectTime {
+    return Object.values(Times).includes(time);
+  }
+}

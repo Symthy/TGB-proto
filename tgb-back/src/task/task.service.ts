@@ -1,11 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskRepository } from '@/tgb/influstructure/repository';
+import { Inject, Injectable } from '@nestjs/common';
+import { TaskCreateCommand } from './command/taskCreate.command';
 import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TaskService {
-  create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+
+  constructor(@Inject('TASK_REPOSITORY') private taskRepository: TaskRepository) {
+  }
+
+  create(command: TaskCreateCommand): Promise<TaskEntity> {
+    const task =
   }
 
   findAll() {
