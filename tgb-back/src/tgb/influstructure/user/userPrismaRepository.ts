@@ -5,7 +5,7 @@ import { UserModel } from "./userModel";
 
 export class UserPrismaRepository implements UserRepository {
   private prisma: DbContext;
-  constructor(private dbContextProvider: DbContextProvider) {
+  constructor(dbContextProvider: DbContextProvider) {
     this.prisma = dbContextProvider.getContext();
   }
 

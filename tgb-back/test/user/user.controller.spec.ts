@@ -6,6 +6,9 @@ import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Role } from '@prisma/client';
 
+jest.mock('@/user/user.service')
+const UserServiceMock = UserService as jest.Mock;
+
 describe('UserController', () => {
   const password = 'password123'
   const nickname = 'nickname';
@@ -13,13 +16,30 @@ describe('UserController', () => {
   const userResult1 = {
     id: 1,
     email: email,
-    password: password,
     nickname: nickname,
     role: "USER" as Role
+  }
+  const nickname2 = 'nickname2';
+  const email2 = 'test2@example.com';
+  const userResult2 = {
+    id: 2,
+    email: email2,
+    nickname: nickname2,
+    role: 'USER' as Role
   }
 
   let controller: UserController;
   beforeEach(async () => {
+    UserServiceMock.mockImplementationOnce(() => {
+      return {
+        create: command => new Promise((resolve) => resolve(command)).then(() => userResult1),
+        findById: id => new Promise((resolve) => resolve(id)).then(() => userResult1),
+        findAll: () => new Promise<void>((resolve) => resolve()).then(() => [userResult1, userResult2]),
+        update: command => new Promise((resolve) => resolve(command)).then(() => userResult1),
+        remove: id => new Promise((resolve) => resolve(id)).then(() => userResult1)
+      }
+    });
+
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
       providers: [UserService, {
@@ -36,7 +56,6 @@ describe('UserController', () => {
   });
 
   it('create: retry password valid', () => {
-    $prisma.user.create.mockResolvedValue(userResult1);
     const createUserDto = new CreateUserDto(password, password, nickname, email);
     expect(controller.create(createUserDto)).resolves.toEqual({
       id: 1,

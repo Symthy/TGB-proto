@@ -1,10 +1,15 @@
 import { PrismaService } from '@/tgb/db/prisma.service';
 import { Role } from '@/tgb/domain/model/user/role';
+import { UserRepository } from '@/tgb/influstructure/repository';
 import { UserPrismaRepository } from '@/tgb/influstructure/user/userPrismaRepository';
 import { UserCreateCommand } from '@/user/command/userCreate.command';
+import { UserUpdateCommand } from '@/user/command/userUpdate.command';
 import { CreateUserDto } from '@/user/dto/create-user.dto';
 import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
+
+jest.mock('@/tgb/influstructure/user/userPrismaRepository')
+const UserRepositoryMock = UserPrismaRepository as unknown as jest.Mock<UserRepository>;
 
 describe('UserService', () => {
   const password = 'password123'
@@ -30,6 +35,16 @@ describe('UserService', () => {
 
   let service: UserService;
   beforeEach(async () => {
+    UserRepositoryMock.mockImplementationOnce(() => {
+      return {
+        create: user => new Promise((resolve) => resolve(user)).then(() => userResult1),
+        findById: id => new Promise((resolve) => resolve(id)).then(() => userResult1),
+        findMany: () => new Promise<void>((resolve) => resolve()).then(() => [userResult1, userResult2]),
+        update: user => new Promise((resolve) => resolve(user)).then(() => userResult1),
+        remove: id => new Promise((resolve) => resolve(id)).then(() => userResult1)
+      }
+    });
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [UserService, {
         provide: 'USER_REPOSITORY',
@@ -45,7 +60,6 @@ describe('UserService', () => {
   });
 
   it('create', () => {
-    $prisma.user.create.mockResolvedValue(userResult1);
     const command = new UserCreateCommand(
       new CreateUserDto(password, password, nickname, email)
     );
@@ -58,7 +72,6 @@ describe('UserService', () => {
   });
 
   it('findById', () => {
-    $prisma.user.findUnique.mockResolvedValue(userResult1);
     expect(service.findById(1)).resolves.toEqual({
       id: 1,
       email: email,
@@ -68,7 +81,6 @@ describe('UserService', () => {
   })
 
   it('findAll', () => {
-    $prisma.user.findMany.mockResolvedValue([userResult1, userResult2]);
     expect(service.findAll()).resolves.toMatchObject([
       {
         id: 1,
@@ -84,4 +96,32 @@ describe('UserService', () => {
       }
     ]);
   });
+
+  it('update', () => {
+    const command = new UserUpdateCommand(
+      1,
+      {
+        password: password,
+        retryPassword: password,
+        nickname: nickname,
+        email: email,
+      }
+    );
+    expect(service.update(command)).resolves.toEqual({
+      id: 1,
+      email: email,
+      nickname: nickname,
+      role: "USER"
+    });
+  })
+
+  it('remove', () => {
+    expect(service.remove(1)).resolves.toEqual({
+      id: 1,
+      email: email,
+      nickname: nickname,
+      role: "USER"
+    });
+  })
+
 });

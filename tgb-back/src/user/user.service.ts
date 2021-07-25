@@ -24,17 +24,17 @@ export class UserService {
     });
   }
 
-  findById(id: number) {
+  findById(id: number): Promise<UserEntity> {
     const user = this.userRepository.findById(id);
     return user.then(user => UserEntity.toResponse(user));
   }
 
-  update(command: UserUpdateCommand) {
+  update(command: UserUpdateCommand): Promise<UserEntity> {
     const user = command.toDomain()
     return this.userRepository.update(user.toModel()).then(user => UserEntity.toResponse(user));
   }
 
-  remove(id: number) {
+  remove(id: number): Promise<UserEntity> {
     return this.userRepository.remove(id).then(user => UserEntity.toResponse(user));
   }
 }
