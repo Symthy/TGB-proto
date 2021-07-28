@@ -12,7 +12,7 @@ export class CreateTaskDto {
 
   @IsNotEmpty()
   @IsString()
-  estimateTime;
+  scheduledTime;
 
   @IsNotEmpty()
   @IsString()
@@ -21,4 +21,12 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsNumberString()
   groupId;
+
+  constructor(title, progressPercent, estimateTime, status, groupId) {
+    this.title = title;
+    this.progressPercent = progressPercent;
+    this.scheduledTime = estimateTime;
+    this.status = status;
+    this.groupId = groupId;
+  }
 }

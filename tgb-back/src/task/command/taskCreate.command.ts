@@ -12,7 +12,7 @@ export class TaskCreateCommand {
   constructor(task: CreateTaskDto) {
     this._title = task.title;
     this._progressPercent = task.progressPercent ?? 0;
-    this._scheduledTime = task.estimateTime ?? SelectTimeValue.defaultTime();
+    this._scheduledTime = task.scheduledTime ?? SelectTimeValue.defaultTime();
     this._status = task.status ?? WorkStatusValue.default();
     this._groupId = task.groupId;
   }

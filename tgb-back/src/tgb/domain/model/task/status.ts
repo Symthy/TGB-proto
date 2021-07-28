@@ -5,9 +5,9 @@ import { WorkState, WorkStatusValue } from "@/tgb/workStatus";
 export class Status {
   constructor(private _value: string) {
     if (_value == null) {
-      throw new ValueNullException("requitedTime");
+      throw new ValueNullException("Status");
     }
-    if (WorkStatusValue.contains(_value)) {
+    if (!WorkStatusValue.contains(_value)) {
       throw new ValueInvalidException("", "status")
     }
   }

@@ -28,4 +28,13 @@ export class WorkStatusValue {
     }
     throw new ValueInvalidException("", "status");
   }
+
+  static reconvert(status: Status): WorkState | never {
+    for (const [key, value] of Object.entries(WorkStates)) {
+      if (key === status as string) {
+        return value as WorkState;
+      }
+    }
+    throw new ValueInvalidException("", "status");
+  }
 }

@@ -1,5 +1,7 @@
 import { TaskController } from '@/task/task.controller';
 import { TaskService } from '@/task/task.service';
+import { PrismaService } from '@/tgb/db/prisma.service';
+import { TaskPrismaRepository } from '@/tgb/influstructure/task/taskPrismaRepository';
 import { Test, TestingModule } from '@nestjs/testing';
 
 describe('TaskController', () => {
@@ -7,11 +9,14 @@ describe('TaskController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TaskService],  // ここに入れないとテスト失敗。コンストラクタで使ってるから？
       controllers: [TaskController],
+      providers: [TaskService, {
+        provide: 'TASK_REPOSITORY',
+        useValue: new TaskPrismaRepository(new PrismaService())
+      }],
     }).compile();
 
-    controller = await module.resolve(TaskController);
+    controller = module.get<TaskController>(TaskController);
   });
 
   it('should be defined', () => {

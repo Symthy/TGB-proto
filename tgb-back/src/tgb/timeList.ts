@@ -1,4 +1,5 @@
 const Times = {
+  '-': '-',
   '0.5hour': '0.5h',
   '1hour': '1h',
   '2hour': '2h',
@@ -26,7 +27,7 @@ export type SelectTime = typeof Times[keys];
 
 export class SelectTimeValue {
   static defaultTime(): SelectTime {
-    return '0.5h';
+    return '-';
   }
 
   static getTimes(): Array<SelectTime> {
