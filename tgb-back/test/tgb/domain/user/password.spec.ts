@@ -1,4 +1,4 @@
-import { Password } from "@/tgb/domain/model/user/password";
+import { Password } from "@/user/domain/user/password";
 
 
 describe('password', () => {

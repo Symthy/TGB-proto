@@ -1,5 +1,5 @@
-import { TaskModel } from "./task/taskModel";
-import { UserModel } from "./user/userModel";
+import { TaskModel } from "@/task/repository/taskModel";
+import { UserModel } from "@/user/repository/userModel";
 
 export interface Repository<T> {
   findById(id: number): Promise<T>;

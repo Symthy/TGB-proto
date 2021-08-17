@@ -1,10 +1,10 @@
 import { PrismaService } from '@/tgb/db/prisma.service';
-import { Role } from '@/tgb/domain/model/user/role';
-import { UserRepository } from '@/tgb/influstructure/repository';
-import { UserPrismaRepository } from '@/tgb/influstructure/user/userPrismaRepository';
+import { UserRepository } from '@/tgb/repository';
 import { UserCreateCommand } from '@/user/command/userCreate.command';
 import { UserUpdateCommand } from '@/user/command/userUpdate.command';
+import { Role } from '@/user/domain/user/role';
 import { CreateUserDto } from '@/user/dto/create-user.dto';
+import { UserPrismaRepository } from '@/user/repository/userPrismaRepository';
 import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 

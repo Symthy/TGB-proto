@@ -1,5 +1,5 @@
-import { Task } from '@/tgb/domain/model/task';
-import { TaskRepository } from '@/tgb/influstructure/repository';
+import { Task } from '@/task/domain/task';
+import { TaskRepository } from '@/tgb/repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { TaskCreateCommand } from './command/taskCreate.command';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -12,7 +12,7 @@ export class TaskService {
   }
 
   create(command: TaskCreateCommand): Promise<TaskEntity> {
-    const task = Task.toDomain(command);
+    const task = Task.create(command);
     return this.taskRepository.create(task.toModel()).then(
       task => TaskEntity.toResponse(task)
     );

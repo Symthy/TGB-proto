@@ -1,11 +1,10 @@
 import { TaskCreateCommand } from '@/task/command/taskCreate.command';
 import { CreateTaskDto } from '@/task/dto/create-task.dto';
+import { TaskPrismaRepository } from '@/task/repository/taskPrismaRepository';
 import { TaskController } from '@/task/task.controller';
 import { TaskService } from '@/task/task.service';
 import { PrismaService } from '@/tgb/db/prisma.service';
-import { TaskPrismaRepository } from '@/tgb/influstructure/task/taskPrismaRepository';
 import { Test, TestingModule } from '@nestjs/testing';
-
 
 jest.mock('@/tgb/influstructure/task/taskPrismaRepository')
 const TaskRepositoryMock = TaskPrismaRepository as unknown as jest.Mock;

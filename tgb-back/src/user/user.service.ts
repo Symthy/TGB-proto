@@ -1,7 +1,8 @@
-import { UserRepository } from '@/tgb/influstructure/repository';
+import { UserRepository } from '@/tgb/repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { UserCreateCommand } from './command/userCreate.command';
 import { UserUpdateCommand } from './command/userUpdate.command';
+import { User } from './domain/user';
 import { UserEntity } from './entities/user.entity';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class UserService {
   }
 
   create(command: UserCreateCommand): Promise<UserEntity> {
-    const user = command.toDomain();
+    const user = User.create(command);
     return this.userRepository.create(user.toModel()).then(
       user => UserEntity.toResponse(user)
     );

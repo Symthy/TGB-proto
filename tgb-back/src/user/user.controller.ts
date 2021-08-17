@@ -12,11 +12,11 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<UserEntity> {
-    const userCreateCommand = new UserCreateCommand(createUserDto);
-    if (userCreateCommand.password !== userCreateCommand.retryPassword) {
+    if (createUserDto.password !== createUserDto.retryPassword) {
       throw new Error("no match password and retry password.");
     }
-    return this.userService.create(userCreateCommand);
+    const command = new UserCreateCommand(createUserDto);
+    return this.userService.create(command);
   }
 
   @Get()

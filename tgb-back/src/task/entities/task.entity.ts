@@ -1,6 +1,6 @@
 
 import { ValueNullException } from "@/exception/valueNullException";
-import { TaskModel } from "@/tgb/influstructure/task/taskModel";
+import { TaskModel } from "@/task/repository/taskModel";
 import { SelectTime } from "@/tgb/timeList";
 import { WorkState, WorkStatusValue } from "@/tgb/workStatus";
 

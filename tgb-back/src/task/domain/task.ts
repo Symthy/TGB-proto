@@ -1,11 +1,12 @@
 import { TaskCreateCommand } from "@/task/command/taskCreate.command";
-import { TaskModel } from "@/tgb/influstructure/task/taskModel";
+import { TaskModel } from "@/task/repository/taskModel";
 import { WorkStatusValue } from "@/tgb/workStatus";
-import { Progress } from "../model/task/progress";
-import { RequiredTime } from "../model/task/requiredTime";
-import { Status } from "../model/task/status";
-import { TaskTitle } from "../model/task/taskTitle";
+import { Progress } from "./model/progress";
+import { RequiredTime } from "./model/requiredTime";
+import { Status } from "./model/status";
+import { TaskTitle } from "./model/taskTitle";
 import { TaskDetail } from "./taskDetail";
+
 
 export class Task {
 
@@ -23,8 +24,7 @@ export class Task {
   ) {
   }
 
-  // Todo: Builder
-  static toDomain(command: TaskCreateCommand) {
+  static create(command: TaskCreateCommand) {
     return new Task(
       new TaskTitle(command.title),
       new Progress(command.progressPercent),

@@ -1,3 +1,4 @@
+import { UserCreateCommand } from "@/user/command/userCreate.command";
 import { Email } from "./user/email";
 import { Nickname } from "./user/nickname";
 import { Password } from "./user/password";
@@ -13,6 +14,13 @@ export class User {
     private id?: number
   ) {
     this.role = RoleValue.user();
+  }
+
+  static create(command: UserCreateCommand): User {
+    return new User(
+      new Password(command.password),
+      new Nickname(command.nickname),
+      new Email(command.email));
   }
 
   toModel() {

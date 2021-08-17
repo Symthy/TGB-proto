@@ -1,5 +1,5 @@
 import { ValueNullException } from "@/exception/valueNullException";
-import { Role } from "@/tgb/domain/model/user/role";
+import { Role } from "@/user/domain/user/role";
 import { User } from "@prisma/client";
 
 export class UserEntity {
