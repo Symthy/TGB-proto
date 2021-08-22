@@ -13,7 +13,7 @@ export class UserService {
 
   create(command: UserCreateCommand): Promise<UserEntity> {
     const user = User.create(command);
-    return this.userRepository.create(user.toModel()).then(
+    return this.userRepository.create(user.toDbModel()).then(
       user => UserEntity.toResponse(user)
     );
   }
@@ -31,11 +31,15 @@ export class UserService {
   }
 
   update(command: UserUpdateCommand): Promise<UserEntity> {
-    const user = command.toDomain()
-    return this.userRepository.update(user.toModel()).then(user => UserEntity.toResponse(user));
+    const user = User.create(command);
+    return this.userRepository.update(user.toDbModel()).then(
+      user => UserEntity.toResponse(user)
+    );
   }
 
   remove(id: number): Promise<UserEntity> {
-    return this.userRepository.remove(id).then(user => UserEntity.toResponse(user));
+    return this.userRepository.remove(id).then(
+      user => UserEntity.toResponse(user)
+    );
   }
 }

@@ -8,7 +8,7 @@ import { UserPrismaRepository } from '@/user/repository/userPrismaRepository';
 import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
-jest.mock('@/tgb/influstructure/user/userPrismaRepository')
+jest.mock('@/user/repository/userPrismaRepository')
 const UserRepositoryMock = UserPrismaRepository as unknown as jest.Mock<UserRepository>;
 
 describe('UserService', () => {

@@ -1,4 +1,6 @@
 import { UserCreateCommand } from "@/user/command/userCreate.command";
+import { UserUpdateCommand } from "../command/userUpdate.command";
+import { UserModel } from "../repository/userModel";
 import { Email } from "./user/email";
 import { Nickname } from "./user/nickname";
 import { Password } from "./user/password";
@@ -16,14 +18,26 @@ export class User {
     this.role = RoleValue.user();
   }
 
-  static create(command: UserCreateCommand): User {
-    return new User(
-      new Password(command.password),
-      new Nickname(command.nickname),
-      new Email(command.email));
+  static create(command: UserCreateCommand | UserUpdateCommand): User {
+    if (command instanceof UserCreateCommand) {
+      return new User(
+        new Password(command.password),
+        new Nickname(command.nickname),
+        new Email(command.email),
+      );
+    }
+    if (command instanceof UserUpdateCommand) {
+      return new User(
+        new Password(command.password),
+        new Nickname(command.nickname),
+        new Email(command.email),
+        command.id
+      );
+    }
+    throw new Error(); // TODO
   }
 
-  toModel() {
+  toDbModel(): UserModel {
     return {
       id: this.id,
       password: this.password.value,

@@ -1,7 +1,6 @@
 import { PrismaService } from "@/tgb/db/prisma.service";
-import { UserPrismaRepository } from "@/tgb/influstructure/user/userPrismaRepository";
+import { UserPrismaRepository } from "@/user/repository/userPrismaRepository";
 import { Role } from "@prisma/client";
-
 
 describe('UserPrismaRepository', () => {
   const prismaServiceMock = new PrismaService();
@@ -32,7 +31,7 @@ describe('UserPrismaRepository', () => {
     })).resolves.toEqual(userResult1);
   });
 
-  it('user fine one', async () => {
+  it('user find one', async () => {
     $prisma.user.findUnique.mockResolvedValue(userResult1);
     expect(userRep.findById(1)).resolves.toEqual(userResult1);
   });

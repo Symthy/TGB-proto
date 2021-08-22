@@ -1,6 +1,7 @@
 import { TaskCreateCommand } from "@/task/command/taskCreate.command";
 import { TaskModel } from "@/task/repository/taskModel";
 import { WorkStatusValue } from "@/tgb/workStatus";
+import { TaskUpdateCommand } from "../command/taskUpdate.command";
 import { Progress } from "./model/progress";
 import { RequiredTime } from "./model/requiredTime";
 import { Status } from "./model/status";
@@ -24,17 +25,29 @@ export class Task {
   ) {
   }
 
-  static create(command: TaskCreateCommand) {
-    return new Task(
-      new TaskTitle(command.title),
-      new Progress(command.progressPercent),
-      new RequiredTime(command.scheduledTime),
-      new Status(command.status),
-      command.groupId
-    );
+  static create(command: TaskCreateCommand | TaskUpdateCommand): Task {
+    if (command instanceof TaskCreateCommand) {
+      return new Task(
+        new TaskTitle(command.title),
+        new Progress(command.progressPercent),
+        new RequiredTime(command.scheduledTime),
+        new Status(command.status),
+        command.groupId
+      );
+    }
+    if (command instanceof TaskUpdateCommand) {
+      return new Task(
+        new TaskTitle(command.title),
+        new Progress(command.progressPercent),
+        new RequiredTime(command.scheduledTime),
+        new Status(command.status),
+        command.groupId,
+      );
+    }
+    throw new Error(); // TODO
   }
 
-  toModel(): TaskModel {
+  toDbModel(): TaskModel {
     return {
       id: this.id,
       title: this.title.value,

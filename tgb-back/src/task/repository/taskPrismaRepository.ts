@@ -1,6 +1,8 @@
 import { DbContext, DbContextProvider } from "@/tgb/db/dbContext";
-import { TaskRepository } from "../repository";
+import { TaskRepository } from "@/tgb/repository";
+import { Task } from "@prisma/client";
 import { TaskModel } from "./taskModel";
+
 
 export class TaskPrismaRepository implements TaskRepository {
   private prisma: DbContext;
@@ -8,12 +10,14 @@ export class TaskPrismaRepository implements TaskRepository {
     this.prisma = dbContextProvider.getContext();
   }
 
-  findById(id: number): Promise<TaskModel> {
-    throw new Error("Method not implemented.");
+  async findById(id: number): Promise<TaskModel> {
+    return await this.prisma.task.findUnique(
+      { where: { id: id } }
+    );
   }
 
-  findMany(): Promise<TaskModel[]> {
-    throw new Error("Method not implemented.");
+  async findMany(): Promise<Task[]> {
+    return await this.prisma.task.findMany();
   }
 
   async create(task: Omit<TaskModel, 'id'>): Promise<TaskModel> {

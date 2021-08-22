@@ -1,6 +1,6 @@
 import { PrismaService } from '@/tgb/db/prisma.service';
-import { UserPrismaRepository } from '@/tgb/influstructure/user/userPrismaRepository';
 import { CreateUserDto } from '@/user/dto/create-user.dto';
+import { UserPrismaRepository } from '@/user/repository/userPrismaRepository';
 import { UserController } from '@/user/user.controller';
 import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';

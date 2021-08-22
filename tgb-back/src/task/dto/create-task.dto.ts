@@ -22,10 +22,10 @@ export class CreateTaskDto {
   @IsNumberString()
   groupId;
 
-  constructor(title, progressPercent, estimateTime, status, groupId) {
+  constructor(title, progressPercent, scheduledTime, status, groupId) {
     this.title = title;
     this.progressPercent = progressPercent;
-    this.scheduledTime = estimateTime;
+    this.scheduledTime = scheduledTime;
     this.status = status;
     this.groupId = groupId;
   }

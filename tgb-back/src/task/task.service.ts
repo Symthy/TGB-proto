@@ -2,7 +2,7 @@ import { Task } from '@/task/domain/task';
 import { TaskRepository } from '@/tgb/repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { TaskCreateCommand } from './command/taskCreate.command';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { TaskUpdateCommand } from './command/taskUpdate.command';
 import { TaskEntity } from './entities/task.entity';
 
 @Injectable()
@@ -13,24 +13,33 @@ export class TaskService {
 
   create(command: TaskCreateCommand): Promise<TaskEntity> {
     const task = Task.create(command);
-    return this.taskRepository.create(task.toModel()).then(
+    return this.taskRepository.create(task.toDbModel()).then(
       task => TaskEntity.toResponse(task)
     );
   }
 
-  findAll() {
-    return `This action returns all task`;
+  findAll(): Promise<Array<TaskEntity>> {
+    return this.taskRepository.findMany().then(tasks => {
+      return tasks.map(task => TaskEntity.toResponse(task));
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  findOne(id: number): Promise<TaskEntity> {
+    return this.taskRepository.findById(id).then(
+      task => TaskEntity.toResponse(task)
+    );
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  update(command: TaskUpdateCommand): Promise<TaskEntity> {
+    const task = Task.create(command);
+    return this.taskRepository.update(task.toDbModel()).then(
+      task => TaskEntity.toResponse(task)
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  remove(id: number): Promise<TaskEntity> {
+    return this.taskRepository.remove(id).then(
+      task => TaskEntity.toResponse(task)
+    );
   }
 }

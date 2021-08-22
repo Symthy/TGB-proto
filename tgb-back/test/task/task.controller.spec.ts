@@ -1,7 +1,7 @@
+import { TaskPrismaRepository } from '@/task/repository/taskPrismaRepository';
 import { TaskController } from '@/task/task.controller';
 import { TaskService } from '@/task/task.service';
 import { PrismaService } from '@/tgb/db/prisma.service';
-import { TaskPrismaRepository } from '@/tgb/influstructure/task/taskPrismaRepository';
 import { Test, TestingModule } from '@nestjs/testing';
 
 describe('TaskController', () => {
