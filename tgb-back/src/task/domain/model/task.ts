@@ -1,13 +1,12 @@
 import { TaskCreateCommand } from "@/task/command/taskCreate.command";
-import { TaskModel } from "@/task/repository/taskModel";
+import { TaskModel } from "@/task/domain/repository/taskModel";
 import { WorkStatusValue } from "@/tgb/workStatus";
-import { TaskUpdateCommand } from "../command/taskUpdate.command";
-import { Progress } from "./model/progress";
-import { RequiredTime } from "./model/requiredTime";
-import { Status } from "./model/status";
-import { TaskTitle } from "./model/taskTitle";
+import { TaskUpdateCommand } from "../../command/taskUpdate.command";
 import { TaskDetail } from "./taskDetail";
-
+import { Progress } from "./value/progress";
+import { RequiredTime } from "./value/requiredTime";
+import { Status } from "./value/status";
+import { TaskTitle } from "./value/taskTitle";
 
 export class Task {
 

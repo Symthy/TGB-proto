@@ -1,4 +1,4 @@
-import { UserRepository } from '@/tgb/repository';
+import { UserRepository } from '@/tgb/db/repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { UserCreateCommand } from './command/userCreate.command';
 import { UserUpdateCommand } from './command/userUpdate.command';

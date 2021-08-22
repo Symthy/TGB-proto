@@ -1,4 +1,4 @@
-import { TaskPrismaRepository } from "@/task/repository/taskPrismaRepository";
+import { TaskPrismaRepository } from "@/task/domain/repository/taskPrismaRepository";
 import { PrismaService } from "@/tgb/db/prisma.service";
 import { Status, Task } from "@prisma/client";
 

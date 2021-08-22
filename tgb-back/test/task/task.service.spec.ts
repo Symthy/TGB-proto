@@ -1,6 +1,6 @@
 import { TaskCreateCommand } from '@/task/command/taskCreate.command';
+import { TaskPrismaRepository } from '@/task/domain/repository/taskPrismaRepository';
 import { CreateTaskDto } from '@/task/dto/create-task.dto';
-import { TaskPrismaRepository } from '@/task/repository/taskPrismaRepository';
 import { TaskController } from '@/task/task.controller';
 import { TaskService } from '@/task/task.service';
 import { PrismaService } from '@/tgb/db/prisma.service';

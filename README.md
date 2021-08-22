@@ -2,6 +2,13 @@
 
 開発用メモ
 
+## Code
+
+コード生成
+```
+nest g resource <moduleName>
+```
+
 ## DB
 
 マイグレーション生成

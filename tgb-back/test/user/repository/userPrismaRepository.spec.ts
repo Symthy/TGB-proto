@@ -1,5 +1,5 @@
 import { PrismaService } from "@/tgb/db/prisma.service";
-import { UserPrismaRepository } from "@/user/repository/userPrismaRepository";
+import { UserPrismaRepository } from "@/user/domain/repository/userPrismaRepository";
 import { Role } from "@prisma/client";
 
 describe('UserPrismaRepository', () => {

@@ -1,5 +1,5 @@
 import { DbContext, DbContextProvider } from "@/tgb/db/dbContext";
-import { TaskRepository } from "@/tgb/repository";
+import { TaskRepository } from "@/tgb/db/repository";
 import { Task } from "@prisma/client";
 import { TaskModel } from "./taskModel";
 

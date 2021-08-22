@@ -1,11 +1,10 @@
 import { UserCreateCommand } from "@/user/command/userCreate.command";
-import { UserUpdateCommand } from "../command/userUpdate.command";
+import { UserUpdateCommand } from "@/user/command/userUpdate.command";
 import { UserModel } from "../repository/userModel";
-import { Email } from "./user/email";
-import { Nickname } from "./user/nickname";
-import { Password } from "./user/password";
-import { RoleValue } from "./user/role";
-
+import { Email } from "./value/email";
+import { Nickname } from "./value/nickname";
+import { Password } from "./value/password";
+import { RoleValue } from "./value/role";
 
 export class User {
   private role;

@@ -1,5 +1,5 @@
-import { Task } from '@/task/domain/task';
-import { TaskRepository } from '@/tgb/repository';
+import { Task } from '@/task/domain/model/task';
+import { TaskRepository } from '@/tgb/db/repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { TaskCreateCommand } from './command/taskCreate.command';
 import { TaskUpdateCommand } from './command/taskUpdate.command';
