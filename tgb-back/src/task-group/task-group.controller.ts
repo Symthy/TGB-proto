@@ -1,11 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TaskGroupService } from './task-group.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateTaskGroupDto } from './dto/create-task-group.dto';
 import { UpdateTaskGroupDto } from './dto/update-task-group.dto';
+import { TaskGroupEntity } from './entities/task-group.entity';
+import { TaskGroupService } from './task-group.service';
 
 @Controller('task-group')
 export class TaskGroupController {
-  constructor(private readonly taskGroupService: TaskGroupService) {}
+  constructor(private readonly taskGroupService: TaskGroupService) { }
 
   @Post()
   create(@Body() createTaskGroupDto: CreateTaskGroupDto) {
@@ -13,7 +14,7 @@ export class TaskGroupController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<TaskGroupEntity[]> {
     return this.taskGroupService.findAll();
   }
 

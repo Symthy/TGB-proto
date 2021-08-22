@@ -20,8 +20,8 @@ export class TaskGroupPrismaRepository implements TaskGroupRepository {
   findById(id: number): Promise<TaskGroupModel> {
     throw new Error("Method not implemented.");
   }
-  findMany(): Promise<TaskGroupModel[]> {
-    throw new Error("Method not implemented.");
+  async findMany(): Promise<TaskGroupModel[]> {
+    return await this.prisma.taskGroup.findMany();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TaskGroupPrismaRepository } from './task-group/domain/repository/taskGroupPrismaRepository';
 import { TaskGroupModule } from './task-group/task-group.module';
 import { TaskPrismaRepository } from './task/domain/repository/taskPrismaRepository';
 import { TaskModule } from './task/task.module';
@@ -10,6 +11,7 @@ import { UserModule } from './user/user.module';
 
 const taskRep = new TaskPrismaRepository(new PrismaService);
 const userRep = new UserPrismaRepository(new PrismaService);
+const taskGroupRep = new TaskGroupPrismaRepository(new PrismaService);
 
 @Module({
   imports: [TaskModule, UserModule, TaskGroupModule],
@@ -23,6 +25,10 @@ const userRep = new UserPrismaRepository(new PrismaService);
     {
       provide: 'USER_REPOSITORY',
       useValue: userRep,
+    },
+    {
+      provide: 'TASK_GROUP_REPOSITORY',
+      useValue: taskGroupRep
     }
   ]
 })

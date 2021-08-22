@@ -6,7 +6,7 @@ import { TaskService } from '@/task/task.service';
 import { PrismaService } from '@/tgb/db/prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
-jest.mock('@/task/repository/taskPrismaRepository')
+jest.mock('@/task/domain/repository/taskPrismaRepository')
 const TaskRepositoryMock = TaskPrismaRepository as unknown as jest.Mock;
 
 describe('TaskService', () => {

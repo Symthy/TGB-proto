@@ -8,7 +8,7 @@ import { CreateUserDto } from '@/user/dto/create-user.dto';
 import { UserService } from '@/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
-jest.mock('@/user/repository/userPrismaRepository')
+jest.mock('@/user/domain/repository/userPrismaRepository')
 const UserRepositoryMock = UserPrismaRepository as unknown as jest.Mock<UserRepository>;
 
 describe('UserService', () => {

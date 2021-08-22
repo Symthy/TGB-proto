@@ -1,6 +1,6 @@
 import { UserCreateCommand } from "@/user/command/userCreate.command";
 import { UserUpdateCommand } from "@/user/command/userUpdate.command";
-import { UserModel } from "../repository/userModel";
+import { UserModel } from "./repository/userModel";
 import { Email } from "./value/email";
 import { Nickname } from "./value/nickname";
 import { Password } from "./value/password";

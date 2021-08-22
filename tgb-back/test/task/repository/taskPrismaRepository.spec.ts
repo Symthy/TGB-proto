@@ -2,7 +2,7 @@ import { TaskPrismaRepository } from "@/task/domain/repository/taskPrismaReposit
 import { PrismaService } from "@/tgb/db/prisma.service";
 import { Status, Task } from "@prisma/client";
 
-describe('UserPrismaRepository', () => {
+describe('TaskPrismaRepository', () => {
   const prismaServiceMock = new PrismaService();
   const taskRep = new TaskPrismaRepository(prismaServiceMock);
 
