@@ -4,11 +4,16 @@ import { TaskUpdateCommand } from './command/taskUpdate.command';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskEntity } from './entities/task.entity';
+import { TasksInGroupEntity } from './entities/tasksInGroup.entity';
 import { TaskService } from './task.service';
+import { TaskInGroupService } from './taskInGroup.service';
 
 @Controller('task')
 export class TaskController {
-  constructor(private readonly taskService: TaskService) { }
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly taskInGroupService: TaskInGroupService
+  ) { }
 
   @Post()
   create(@Body() createTaskDto: CreateTaskDto): Promise<TaskEntity> {
@@ -35,5 +40,10 @@ export class TaskController {
   @Delete(':id')
   remove(@Param('id') id: string): Promise<TaskEntity> {
     return this.taskService.remove(+id);
+  }
+
+  @Get('group/:id')
+  findByGroupId(@Param('id') id: string): Promise<TasksInGroupEntity[]> {
+    return this.taskInGroupService.findByGroupId(+id);
   }
 }

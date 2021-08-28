@@ -11,21 +11,21 @@ export class TaskService {
   constructor(@Inject('TASK_REPOSITORY') private taskRepository: TaskRepository) {
   }
 
-  create(command: TaskCreateCommand): Promise<TaskEntity> {
-    const task = Task.create(command);
-    return this.taskRepository.create(task.toDbModel()).then(
+  findOne(id: number): Promise<TaskEntity> {
+    return this.taskRepository.findById(id).then(
       task => TaskEntity.toResponse(task)
     );
   }
 
   findAll(): Promise<Array<TaskEntity>> {
-    return this.taskRepository.findMany().then(tasks => {
+    return this.taskRepository.findAll().then(tasks => {
       return tasks.map(task => TaskEntity.toResponse(task));
     });
   }
 
-  findOne(id: number): Promise<TaskEntity> {
-    return this.taskRepository.findById(id).then(
+  create(command: TaskCreateCommand): Promise<TaskEntity> {
+    const task = Task.create(command);
+    return this.taskRepository.create(task.toDbModel()).then(
       task => TaskEntity.toResponse(task)
     );
   }

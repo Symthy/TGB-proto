@@ -32,6 +32,7 @@ model User {
 
   Profile       Profile?
   UserTaskGroup UserTaskGroup[]
+  Task          Task[]
 
   @@map("user")
 }
@@ -54,10 +55,15 @@ model Task {
   reviewPoints  Int       @default(0) @map("review_points")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
+  startedAt     DateTime  @map("started_at")
   completedAt   DateTime? @map("completed_at")
 
   groupId   Int       @map("group_id")
   taskGroup TaskGroup @relation(fields: [groupId], references: [id])
+
+  assignUserId Int  @map("assign_user_id")
+  user         User @relation(fields: [assignUserId], references: [id])
+
   @@map("task")
 }
 

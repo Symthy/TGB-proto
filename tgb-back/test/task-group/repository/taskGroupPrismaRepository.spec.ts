@@ -19,7 +19,7 @@ describe('TaskPrismaRepository', () => {
 
   it('task group find all', async () => {
     $prisma.taskGroup.findMany.mockResolvedValue([tgResult1, tgResult2]);
-    expect(taskGroupRep.findMany()).resolves.toMatchObject(
+    expect(taskGroupRep.findAll()).resolves.toMatchObject(
       [tgResult1, tgResult2]
     );
   });

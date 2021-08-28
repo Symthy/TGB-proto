@@ -16,7 +16,7 @@ export class TaskPrismaRepository implements TaskRepository {
     );
   }
 
-  async findMany(): Promise<Task[]> {
+  async findAll(): Promise<Task[]> {
     return await this.prisma.task.findMany();
   }
 

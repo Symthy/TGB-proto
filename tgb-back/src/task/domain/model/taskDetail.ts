@@ -1,7 +1,8 @@
-import { RequiredTime } from "./model/task/requiredTime";
-import { ReviewPoints } from "./model/task/reviewPoints";
-import { StepCount } from "./model/task/stepCount";
-import { TaskContent } from "./model/task/taskContent";
+import { RequiredTime } from "./value/requiredTime";
+import { ReviewPoints } from "./value/reviewPoints";
+import { StepCount } from "./value/stepCount";
+import { TaskContent } from "./value/taskContent";
+
 
 export class TaskDetail {
   constructor(

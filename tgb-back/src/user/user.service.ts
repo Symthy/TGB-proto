@@ -11,15 +11,8 @@ export class UserService {
   constructor(@Inject('USER_REPOSITORY') private userRepository: UserRepository) {
   }
 
-  create(command: UserCreateCommand): Promise<UserEntity> {
-    const user = User.create(command);
-    return this.userRepository.create(user.toDbModel()).then(
-      user => UserEntity.toResponse(user)
-    );
-  }
-
   findAll(): Promise<Array<UserEntity>> {
-    const users = this.userRepository.findMany()
+    const users = this.userRepository.findAll()
     return users.then(users => {
       return users.map(user => UserEntity.toResponse(user));
     });
@@ -28,6 +21,13 @@ export class UserService {
   findById(id: number): Promise<UserEntity> {
     const user = this.userRepository.findById(id);
     return user.then(user => UserEntity.toResponse(user));
+  }
+
+  create(command: UserCreateCommand): Promise<UserEntity> {
+    const user = User.create(command);
+    return this.userRepository.create(user.toDbModel()).then(
+      user => UserEntity.toResponse(user)
+    );
   }
 
   update(command: UserUpdateCommand): Promise<UserEntity> {

@@ -39,7 +39,7 @@ describe('UserService', () => {
       return {
         create: user => new Promise((resolve) => resolve(user)).then(() => userResult1),
         findById: id => new Promise((resolve) => resolve(id)).then(() => userResult1),
-        findMany: () => new Promise<void>((resolve) => resolve()).then(() => [userResult1, userResult2]),
+        findAll: () => new Promise<void>((resolve) => resolve()).then(() => [userResult1, userResult2]),
         update: user => new Promise((resolve) => resolve(user)).then(() => userResult1),
         remove: id => new Promise((resolve) => resolve(id)).then(() => userResult1)
       }

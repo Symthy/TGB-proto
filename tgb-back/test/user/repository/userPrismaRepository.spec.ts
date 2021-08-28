@@ -38,7 +38,7 @@ describe('UserPrismaRepository', () => {
 
   it('user find all', async () => {
     $prisma.user.findMany.mockResolvedValue([userResult1, userResult2]);
-    expect(userRep.findMany()).resolves.toMatchObject([
+    expect(userRep.findAll()).resolves.toMatchObject([
       userResult1, userResult2
     ]);
   });

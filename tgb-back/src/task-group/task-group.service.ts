@@ -15,7 +15,7 @@ export class TaskGroupService {
   }
 
   findAll(): Promise<TaskGroupEntity[]> {
-    return this.taskGroupRepository.findMany().then(
+    return this.taskGroupRepository.findAll().then(
       taskGroups => taskGroups.map(tg => TaskGroupEntity.toResponse(tg))
     );
   }

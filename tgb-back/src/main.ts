@@ -7,10 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
 
   const config = new DocumentBuilder()
-    .setTitle('Poke Rest')
-    .setDescription('Poke Rest API description')
+    .setTitle('TGB Rest')
+    .setDescription('TGB REST API description')
     .setVersion('1.0')
-    .addTag('PokeRest')
+    .addTag('TGB')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
