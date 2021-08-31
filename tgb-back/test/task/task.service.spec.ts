@@ -1,8 +1,10 @@
 import { TaskCreateCommand } from '@/task/command/taskCreate.command';
+import { TaskQueryService } from '@/task/domain/query/taskQueryService';
 import { TaskPrismaRepository } from '@/task/domain/repository/taskPrismaRepository';
 import { CreateTaskDto } from '@/task/dto/create-task.dto';
 import { TaskController } from '@/task/task.controller';
 import { TaskService } from '@/task/task.service';
+import { TaskInGroupService } from '@/task/taskInGroup.service';
 import { PrismaService } from '@/tgb/db/prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
@@ -38,10 +40,14 @@ describe('TaskService', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TaskController],
-      providers: [TaskService, {
-        provide: 'TASK_REPOSITORY',
-        useValue: new TaskPrismaRepository(new PrismaService())
-      }],
+      providers: [TaskService, TaskInGroupService,
+        {
+          provide: 'TASK_REPOSITORY',
+          useValue: new TaskPrismaRepository(new PrismaService())
+        }, {
+          provide: 'TASK_QUERY_REPOSITORY',
+          useValue: new TaskQueryService(new PrismaService())
+        }],
     }).compile();
 
     service = module.get<TaskService>(TaskService);

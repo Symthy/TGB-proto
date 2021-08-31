@@ -7,7 +7,7 @@ export class TaskQueryService {
     this.prisma = dbContextProvider.getContext();
   }
 
-  async getTasksByGroupId(groupId: number): Promise<GroupBelongTasksDto[]> {
+  async findByGroupId(groupId: number): Promise<GroupBelongTasksDto[]> {
     const tasks = await this.prisma.task.findMany(
       {
         where: { groupId: groupId },

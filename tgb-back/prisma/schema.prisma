@@ -54,15 +54,15 @@ model Task {
   stepCount     Int       @default(0) @map("step_count")
   reviewPoints  Int       @default(0) @map("review_points")
   createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  startedAt     DateTime  @map("started_at")
+  updatedAt     DateTime? @updatedAt @map("updated_at")
+  startedAt     DateTime? @map("started_at")
   completedAt   DateTime? @map("completed_at")
 
   groupId   Int       @map("group_id")
   taskGroup TaskGroup @relation(fields: [groupId], references: [id])
 
-  assignUserId Int  @map("assign_user_id")
-  user         User @relation(fields: [assignUserId], references: [id])
+  assignUserId Int?  @map("assign_user_id")
+  user         User? @relation(fields: [assignUserId], references: [id])
 
   @@map("task")
 }

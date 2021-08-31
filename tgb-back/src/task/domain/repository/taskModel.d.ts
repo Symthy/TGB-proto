@@ -1,4 +1,3 @@
-import { SelectTime } from "@/tgb/timeList";
 import { Status } from "@prisma/client";
 
 interface TaskModel {
@@ -13,14 +12,8 @@ interface TaskModel {
   reviewPoints?: number
   createdAt?: Date;
   updatedAt?: Date;
+  startedAt?: Date;
   completedAt?: Date;
   groupId: number;
-}
-
-interface TaskDetailModel {
-  id: number
-  content?: string,
-  resultTime?: SelectTime,
-  stepCount?: number,
-  reviewPoints?: number
+  assignUserId?: number;
 }

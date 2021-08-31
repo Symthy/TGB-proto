@@ -38,11 +38,11 @@ CREATE TABLE "task" (
     "step_count" INTEGER NOT NULL DEFAULT 0,
     "review_points" INTEGER NOT NULL DEFAULT 0,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-    "started_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3),
+    "started_at" TIMESTAMP(3),
     "completed_at" TIMESTAMP(3),
     "group_id" INTEGER NOT NULL,
-    "assign_user_id" INTEGER NOT NULL,
+    "assign_user_id" INTEGER,
 
     PRIMARY KEY ("id")
 );
@@ -74,7 +74,7 @@ ALTER TABLE "profile" ADD FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DEL
 ALTER TABLE "task" ADD FOREIGN KEY ("group_id") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "task" ADD FOREIGN KEY ("assign_user_id") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "task" ADD FOREIGN KEY ("assign_user_id") REFERENCES "user"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserTaskGroup" ADD FOREIGN KEY ("task_group_id") REFERENCES "task_group"("id") ON DELETE CASCADE ON UPDATE CASCADE;

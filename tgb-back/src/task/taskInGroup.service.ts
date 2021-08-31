@@ -8,6 +8,6 @@ export class TaskInGroupService {
   constructor(@Inject('TASK_QUERY_REPOSITORY') private taskRepository: TaskQueryService) { }
 
   findByGroupId(groupId: number): Promise<GroupBelongTasksDto[]> {
-    return this.taskRepository.getTasksByGroupId(groupId);
+    return this.taskRepository.findByGroupId(groupId);
   }
 }

@@ -18,8 +18,10 @@ describe('TaskPrismaRepository', () => {
     reviewPoints: 0,
     groupId: 0,
     createdAt: new Date(),
-    updatedAt: new Date(),
-    completedAt: new Date()
+    updatedAt: undefined,
+    startedAt: undefined,
+    completedAt: undefined,
+    assignUserId: undefined,
   }
 
   const taskResult2: Task = {
@@ -35,7 +37,9 @@ describe('TaskPrismaRepository', () => {
     groupId: 0,
     createdAt: new Date(),
     updatedAt: new Date(),
-    completedAt: null
+    startedAt: new Date(),
+    completedAt: undefined,
+    assignUserId: 1,
   };
 
   it('task find one', async () => {
@@ -90,8 +94,10 @@ describe('TaskPrismaRepository', () => {
       reviewPoints: 0,
       groupId: 0,
       createdAt: new Date('2021-06-01T00:00:00'),
-      updatedAt: new Date('2021-06-02T00:00:00'),
-      completedAt: null
+      updatedAt: new Date('2021-06-03T00:00:00'),
+      startedAt: new Date('2021-06-02T00:00:00'),
+      completedAt: undefined,
+      assignUserId: 1
     };
     $prisma.task.delete.mockResolvedValue(taskDeleteResult);
     await expect(taskRep.remove(1)).resolves.toEqual(taskDeleteResult);
